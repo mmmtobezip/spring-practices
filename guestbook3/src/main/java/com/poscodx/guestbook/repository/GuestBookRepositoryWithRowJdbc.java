@@ -10,18 +10,11 @@ import javax.sql.DataSource;
 import org.springframework.stereotype.Repository;
 import com.poscodx.guestbook.vo.GuestBookVo;
 
-
 // RowJdbc를 사용한 Repository
 @Repository
 public class GuestBookRepositoryWithRowJdbc {
-
   private DataSource dataSource;
 
-  // 1. 애노테이션을 통한 의존성 주입(자동 주입)
-  // @Autowired
-  // private DataSource dataSource; // jdbc에 존재
-
-  // 1. 생성자를 통한 의존성 주입(명시적, 자바의 기본 방식)
   public GuestBookRepositoryWithRowJdbc(DataSource dataSource) {
     this.dataSource = dataSource;
   }
