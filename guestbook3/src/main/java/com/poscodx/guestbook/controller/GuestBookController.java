@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.poscodx.guestbook.repository.GuestBookRepository;
+import com.poscodx.guestbook.repository.GuestBookRepositoryWithRowJdbc;
 import com.poscodx.guestbook.vo.GuestBookVo;
 
 @Controller
 public class GuestBookController {
   @Autowired
-  private GuestBookRepository guestbookRepository;
+  private GuestBookRepositoryWithRowJdbc guestbookRepository;
 
   @RequestMapping("/")
   public String index(Model model) {
