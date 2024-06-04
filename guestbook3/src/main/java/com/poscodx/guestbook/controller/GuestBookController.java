@@ -9,23 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.poscodx.guestbook.repository.GuestBookRepositoryWithJdbcContext;
+import com.poscodx.guestbook.repository.GuestBookRepositoryWithJdbcTemplate;
 import com.poscodx.guestbook.repository.GuestBookRepositoryWithRowJdbc;
 import com.poscodx.guestbook.vo.GuestBookVo;
 
 @Controller
 public class GuestBookController {
   @Autowired
-  private GuestBookRepositoryWithRowJdbc guestbookRepositoryWithRowJdbc;
+  private GuestBookRepositoryWithRowJdbc gbrWithRowJdbc;
 
   @Autowired
-  private GuestBookRepositoryWithJdbcContext guestbookRepositorywithJdbcContext;
-  //
-  // @Autowired
-  // private GuestBookRepositoryWithJdbcTemplate guestbookRepositorywithJdbcTemplate;
+  private GuestBookRepositoryWithJdbcContext gbrwithJdbcContext;
+
+  @Autowired
+  private GuestBookRepositoryWithJdbcTemplate gbrwithJdbcTemplate;
 
   @RequestMapping("/")
   public String index(Model model) {
-    List<GuestBookVo> list = guestbookRepositoryWithRowJdbc.findAll();
+    List<GuestBookVo> list = gbrwithJdbcTemplate.findAll();
     model.addAttribute("list", list);
 
     return "index";
@@ -33,7 +34,7 @@ public class GuestBookController {
 
   @RequestMapping("/add")
   public String add(GuestBookVo vo) {
-    guestbookRepositorywithJdbcContext.insert(vo);
+    gbrwithJdbcTemplate.insert(vo);
     return "redirect:/";
   }
 
@@ -46,7 +47,7 @@ public class GuestBookController {
   @RequestMapping(value = "/delete/{no}", method = RequestMethod.POST)
   public String delete(@PathVariable("no") Long no,
       @RequestParam(value = "password", required = true, defaultValue = "") String password) {
-    guestbookRepositorywithJdbcContext.deleteByNoAndPassword(no, password);
+    gbrwithJdbcTemplate.deleteByNoAndPassword(no, password);
     return "redirect:/";
   }
 }

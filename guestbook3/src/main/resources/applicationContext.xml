@@ -19,6 +19,19 @@
 		<property name="username" value="webdb" />
 		<property name="password" value="webdb" />
 	</bean>
+	
+	<!-- JdbcContext -->
+	<bean id="JdbcContext" class="com.poscodx.guestbook.repository.template.JdbcContext">
+	<!-- 위 내용을 읽고 기본 생성자를 생성함. -->
+		<constructor-arg index="0" ref="dataSource" />
+	</bean>
+	
+	<!--  template callback 알아보기  -->
+	<!--  JdbcTemplate -->
+	<bean id="JdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg index="0" ref="dataSource" />
+	</bean>
+	
 
 	<context:annotation-config />
 	<context:component-scan base-package="com.poscodx.guestbook.repository">
