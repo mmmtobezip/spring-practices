@@ -10,11 +10,11 @@ import com.poscodx.guestbook.vo.GuestBookVo;
 
 // JdbcContext를 사용한 Repository
 @Repository
-public class GuestBookRepositoryWithJdbcContext {
+public class GuestBookRepository {
 
   private JdbcContext jdbcContext;
 
-  public GuestBookRepositoryWithJdbcContext(JdbcContext jdbcContext) {
+  public GuestBookRepository(JdbcContext jdbcContext) {
     this.jdbcContext = jdbcContext;
   }
 
