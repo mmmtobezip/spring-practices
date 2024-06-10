@@ -46,6 +46,9 @@ public class MyAspect {
     /* 2. Point Cut Method 실행 */
     Object result = pjp.proceed();
 
+    // Object[] params = {"Camera"};
+    // Object result = pjp.proceed(params);
+
     /* 3. After */
     System.out.println("------Around(After)------");
 
