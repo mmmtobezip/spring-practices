@@ -10,5 +10,6 @@
   	<module>guestbook3</module>
   	<module>aspect</module>
   	<module>fileupload</module>
+  	<module>logex</module>
   </modules>
 </project>
