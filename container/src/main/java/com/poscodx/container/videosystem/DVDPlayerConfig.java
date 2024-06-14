@@ -26,11 +26,19 @@ public class DVDPlayerConfig {
 
   // 1. DI Injection(주입) 1
   // Bean 생성 메서드를 직접 호출하는 방법
-  @Bean
-  public DVDPlayer dvdPlayer() {
+  // dvdPlayer1 = 고유한 Bean Id
+  @Bean("dvdPlayer") // Bean Id 직접 명시도 가능
+  public DVDPlayer dvdPlayer1() {
     DVDPlayer dvdPlayer = new DVDPlayer(avengers()); // new DVDPlayer(new Avengers()); 불가
 
     return dvdPlayer;
+  }
+
+  // 2. DI Injection(주입) 2
+  // Parameter로 Bean을 전달하는 방법
+  @Bean
+  public DVDPlayer dvdPlayer2(DigitalVideoDisc dvd) {
+    return new DVDPlayer(dvd);
   }
 
 
