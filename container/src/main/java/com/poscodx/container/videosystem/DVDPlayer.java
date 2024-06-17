@@ -1,4 +1,4 @@
-package com.poscodx.container.config.videosystem;
+package com.poscodx.container.videosystem;
 
 public class DVDPlayer {
   private DigitalVideoDisc dvd;

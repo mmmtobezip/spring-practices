@@ -1,10 +1,10 @@
-package com.poscodx.container.videosystem;
+package com.poscodx.container.config.videosystem;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.poscodx.container.config.videosystem.Avengers;
-import com.poscodx.container.config.videosystem.DVDPlayer;
-import com.poscodx.container.config.videosystem.DigitalVideoDisc;
+import com.poscodx.container.videosystem.Avengers;
+import com.poscodx.container.videosystem.DVDPlayer;
+import com.poscodx.container.videosystem.DigitalVideoDisc;
 
 @Configuration // 명시적 빈 설정 - component 안붙임 -> <bean /> 대신하는 곳
 public class DVDPlayerConfig {
