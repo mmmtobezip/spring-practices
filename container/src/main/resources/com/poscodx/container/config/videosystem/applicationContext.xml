@@ -5,6 +5,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:c="http://www.springframework.org/schema/c"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
@@ -13,7 +14,9 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
-        
+     
+    <!-- Bean 생성 -->
+    
 	<!-- 01. 빈설정: 초간단 -->
 	<bean class="com.poscodx.container.videosystem.Avengers"></bean>
 	
@@ -37,5 +40,73 @@
 		  class="com.poscodx.container.videosystem.BlankDisc"
 		  c:_1="Marvel"
 		  c:_0="Avengers Age of Ultron" />
+
+	<!-- 06. 빈설정: 생성자 null argument, null이 들어올 수 있는 경우의 빈 설정 -->
+	<bean id="avengersCaptainAmerica" class="com.poscodx.container.videosystem.BlankDisc">
+		<constructor-arg name="title" value="Avengers Captain America" />
+		<constructor-arg name="studio" value="Marvel" />
+		<constructor-arg name="actors"><null/></constructor-arg>
+	</bean>
+	
+	<!-- 07. 빈설정: 생성자 collection argument -->
+	<bean id="avengersDirectorEdition" class="com.poscodx.container.videosystem.BlankDisc">
+		<constructor-arg name="title" value="Avengers Director Edition" />
+		<constructor-arg name="studio" value="Marvel" />
+		<constructor-arg name="actors">
+			<list>
+				<value>Robert Downey Jr.</value>
+				<value>Chris Evans</value>
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	<!-- 08. 빈설정: 생성자 wiring collection, 첫번째 파라미터 c:title, 두번째 파라미터 name, bean들간 명시적 DI -->
+	<bean id="avengersTriplePack" class="com.poscodx.container.videosystem.DVDPack" c:title="Avengers Triple pack">
+		<constructor-arg name="dvds">
+			<list>
+				<ref bean="avengersInfinityWar" />
+				<ref bean="avengersAgeOfUltron" />
+				<ref bean="avengersEndgame" />
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	<!-- 09. 빈설정: 프로퍼티 사용1(=setter), property = BlankDisc 내 setter 존재해야 사용 가능  -->
+	<bean id="avengersExpansionEdition1" class="com.poscodx.container.videosystem.BlankDisc">
+		<property name="title" value="Avengers Expansion Edition1" />
+		<property name="studio" value="Marvel" />
+	</bean>
+	
+	<!-- 10. 빈설정: 프로퍼티 사용2, property tag + p namespace 함께 사용한 Collection  -->
+	<bean id="avengersExpansionEdition2" class="com.poscodx.container.videosystem.BlankDisc" p:title="Avengers Expansion Edition2" p:studio="Marvel" >
+		<property name="actors">
+			<list>
+				<value>Robert Downey Jr.</value>
+				<value>Chris Evans</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 11. 빈설정: 프로퍼티 사용3, 임시의 List타입 bean 생성, util namespace 추가(10번과 동일함) -->
+	<util:list id = "actorList"> <!-- 임시로 생기는 Collection Bean -->
+		<value>Robert Downey Jr.</value>
+		<value>Chris Evans</value>
+	</util:list>
+	<bean id="avengersExpansionEdition3" 
+		class="com.poscodx.container.videosystem.BlankDisc" 
+		p:title="Avengers Expansion Edition3" 
+		p:studio="Marvel"
+		p:actors-ref="actorList" >
+	</bean>
+	
+	<!-- Bean DI 주입 -->
+	
+	<!-- 12. 빈주입: 생성자 주입1 -->
+	<!-- 13. 빈주입: 생성자 주입2 -->
+	<!-- 14. 빈주입: 생성자 주입3 -->
+	
+	<!-- 15. 빈주입: 프로퍼티 주입1(setter 주입) -->
+	<!-- 16. 빈주입: 프로퍼티 주입2(setter 주입) -->
+	
 
 </beans>
