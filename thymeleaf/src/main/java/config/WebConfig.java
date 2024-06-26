@@ -23,73 +23,72 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @EnableWebMvc
 @ComponentScan({"controller"})
 public class WebConfig implements WebMvcConfigurer {
-	
-	// Message Source
-	@Bean
-	public MessageSource messageSource() {
-		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-		messageSource.setBasename("messages/message");
-		messageSource.setDefaultEncoding("utf-8");
 
-		return messageSource;
-	}
+  // Message Source
+  @Bean
+  public MessageSource messageSource() {
+    ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+    messageSource.setBasename("messages/message");
+    messageSource.setDefaultEncoding("utf-8");
 
-	// Resouce Handler
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry
-			.addResourceHandler("/assets/**")
-			.addResourceLocations("classpath:assets/");		
-	}
-	
-	// Thymeleaf Template Engine
-	@Bean
-	public SpringResourceTemplateResolver templateResolver(ApplicationContext applicationContext) {
-		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+    return messageSource;
+  }
 
-		templateResolver.setApplicationContext(applicationContext);
-		templateResolver.setPrefix("classpath:templates/");
-		templateResolver.setSuffix(".html");
-		templateResolver.setTemplateMode(TemplateMode.HTML);
-		templateResolver.setCacheable(false);
-		
-		return templateResolver;
-	}
-	
-	@Bean
-	public SpringTemplateEngine templateEngine(ITemplateResolver templateResolver) {
-		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+  // Resouce Handler
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/assets/**").addResourceLocations("classpath:assets/");
+  }
 
-		templateEngine.setTemplateResolver(templateResolver);
-		templateEngine.setEnableSpringELCompiler(true);
-		templateEngine.setTemplateEngineMessageSource(messageSource());
+  // Thymeleaf Template Engine
+  @Bean
+  public SpringResourceTemplateResolver templateResolver(ApplicationContext applicationContext) {
+    SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
 
-		return templateEngine;
-	}
+    templateResolver.setApplicationContext(applicationContext);
+    templateResolver.setPrefix("classpath:templates/");
+    templateResolver.setSuffix(".html");
+    templateResolver.setTemplateMode(TemplateMode.HTML);
+    templateResolver.setCharacterEncoding("utf-8");
+    templateResolver.setCacheable(false);
 
-	// Thymeleaf View Resolver
-	@Bean
-	public ViewResolver thymeleafViewResolver(ISpringTemplateEngine templateEngine) {
-		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+    return templateResolver;
+  }
 
-		viewResolver.setTemplateEngine(templateEngine);
-		viewResolver.setCharacterEncoding("UTF-8");
-		viewResolver.setOrder(1);
+  @Bean
+  public SpringTemplateEngine templateEngine(ITemplateResolver templateResolver) {
+    SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 
-		return viewResolver;
-	}
+    templateEngine.setTemplateResolver(templateResolver);
+    templateEngine.setEnableSpringELCompiler(true);
+    templateEngine.setTemplateEngineMessageSource(messageSource());
 
-	// JSP View Resolver
-	@Bean
-	public ViewResolver jspViewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+    return templateEngine;
+  }
 
-		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setViewNames("views/*");
-		viewResolver.setPrefix("/WEB-INF/");
-		viewResolver.setSuffix(".jsp");
-		viewResolver.setOrder(0);
+  // Thymeleaf View Resolver
+  @Bean
+  public ViewResolver thymeleafViewResolver(ISpringTemplateEngine templateEngine) {
+    ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
 
-		return viewResolver;
-	}
+    viewResolver.setTemplateEngine(templateEngine);
+    viewResolver.setCharacterEncoding("UTF-8");
+    viewResolver.setOrder(1);
+
+    return viewResolver;
+  }
+
+  // JSP View Resolver
+  @Bean
+  public ViewResolver jspViewResolver() {
+    InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+
+    viewResolver.setViewClass(JstlView.class);
+    viewResolver.setViewNames("views/*");
+    viewResolver.setPrefix("/WEB-INF/");
+    viewResolver.setSuffix(".jsp");
+    viewResolver.setOrder(0);
+
+    return viewResolver;
+  }
 }
